@@ -1,4 +1,4 @@
-package No01_SocketSimple.No1_SocketOI_String;
+package No01_SocketSimple.No01_SocketOI_String;
 
 import java.io.BufferedReader;
 import java.io.IOException;

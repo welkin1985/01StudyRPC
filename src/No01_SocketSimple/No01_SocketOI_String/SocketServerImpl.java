@@ -1,9 +1,6 @@
 package No01_SocketSimple.No01_SocketOI_String;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -23,11 +20,12 @@ public class SocketServerImpl   {
         while (true) {
             Socket socket = ss.accept();//阻塞 只到有远端连接接入
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter pw = new PrintWriter(socket.getOutputStream(),true);
+            PrintStream pw = new PrintStream(socket.getOutputStream(),true);
             String msg = null;
             while ((msg = br.readLine()) != null) {
                 System.out.println("received msg: " + msg);
                 pw.println("hello client!");
+                System.out.println("======== msg send back =======");
             }
 
 

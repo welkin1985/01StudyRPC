@@ -3,7 +3,6 @@ package No01_SocketSimple.No03_SocketRPC_ctrl;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 /**
  *
@@ -32,8 +31,6 @@ public class Socket_C {
 
             }
 
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

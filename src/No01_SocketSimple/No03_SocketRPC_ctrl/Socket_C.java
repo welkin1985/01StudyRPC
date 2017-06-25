@@ -12,18 +12,19 @@ public class Socket_C {
     private String add = "127.0.0.1";
     private int port = 19999;
     private Socket socket = null;
+
     public void startCli() {
 
         try {
             socket = new Socket(add, port);
             {
                 RefBean refBean = new RefBean();
-                refBean.setClazzName("MessageBean");
-                refBean.setMethonName("getMsg");
+                refBean.setClazzName(MessageBean.class.getName());
+                refBean.setMethonName("setMsg");
                 refBean.setValue("cmd from client");
                 ObjectOutputStream oo = new ObjectOutputStream(socket.getOutputStream());
                 oo.writeObject(refBean);
-                while (true){
+                while (true) {
 
                 }
 

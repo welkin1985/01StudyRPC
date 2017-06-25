@@ -29,20 +29,16 @@ public class Socket_S {
                     Object object = objectInputStream.readObject();
                     RefBean refBean = (RefBean) object;
                     Class clazz = Class.forName(refBean.getClazzName());
-                    Object o = clazz.newInstance();
-                    Method method = clazz.getMethod(refBean.getMethonName(), clazz);
-                    method.invoke()
+                    Object msg = clazz.newInstance();
+                    Method method = clazz.getMethod(refBean.getMethonName(), String.class);
+                    Object invoke = method.invoke(msg, refBean.getValue());
+                    Method printMsg = clazz.getMethod("printMsg");
+                    printMsg.invoke(msg);
                 }
             }
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IOException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }
     }
@@ -50,7 +46,7 @@ public class Socket_S {
     public static void main(String[] args) {
         try {
             new Socket_S().startServer();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException e) {
             e.printStackTrace();
         }
     }

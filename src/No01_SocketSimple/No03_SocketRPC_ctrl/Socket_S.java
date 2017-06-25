@@ -22,11 +22,12 @@ public class Socket_S {
         try {
             ss = new ServerSocket(port);
             System.err.println("server started!");
-            {
+            {//jdk7新特性，{}包裹io流则不用手动关闭，但必须以try开始
                 while (true) {
                     Socket socket = ss.accept();
                     ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
                     Object object = objectInputStream.readObject();
+                    //解析操作命令，反射调用操作命令指示的类对象和方法
                     RefBean refBean = (RefBean) object;
                     Class clazz = Class.forName(refBean.getClazzName());
                     Object msg = clazz.newInstance();

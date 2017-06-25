@@ -17,7 +17,8 @@ public class Socket_C {
 
         try {
             socket = new Socket(add, port);
-            {
+            {//jdk7新特性，{}包裹io流则不用手动关闭，但必须以try开始
+                //封装一个操作命令的对象，包含了操作谁，什么方法，什么值
                 RefBean refBean = new RefBean();
                 refBean.setClazzName(MessageBean.class.getName());
                 refBean.setMethonName("setMsg");

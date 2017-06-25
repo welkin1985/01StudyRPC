@@ -1,4 +1,4 @@
-package No01_SocketSimple.No01_SocketOI_String;
+package No02_SocketSimple.No01_SocketOI_String;
 
 import java.io.*;
 import java.net.ServerSocket;

@@ -1,4 +1,4 @@
-package No01_SocketSimple.No02_SocketIO_Obj;
+package No02_SocketSimple.No02_SocketIO_Obj;
 
 import java.io.Serializable;
 

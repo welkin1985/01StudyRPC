@@ -1,4 +1,4 @@
-package No01_SocketSimple.No04_SocketIO_MultThread;
+package No02_SocketSimple.No04_SocketIO_MultThread;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -1,4 +1,4 @@
-package No01_SocketSimple.No03_SocketRPC_ctrl;
+package No02_SocketSimple.No03_SocketRPC_ctrl;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

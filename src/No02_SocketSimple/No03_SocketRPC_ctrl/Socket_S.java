@@ -12,20 +12,21 @@ import java.net.Socket;
  */
 public class Socket_S {
     private int port = 19999;
-    private ServerSocket ss = null;
 
     public Socket_S() {
 
     }
 
     public void startServer() throws ClassNotFoundException, NoSuchMethodException {
-        try {
-            ss = new ServerSocket(port);
+        try (
+                ServerSocket ss = new ServerSocket(port);
+        ) {//jdk7新特性，{}包裹io流则不用手动关闭，但必须以try开始
             System.err.println("server started!");
-            {//jdk7新特性，{}包裹io流则不用手动关闭，但必须以try开始
-                while (true) {
-                    Socket socket = ss.accept();
-                    ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            while (true) {
+                try (
+                        Socket socket = ss.accept();
+                        ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
+                ) {
                     Object object = objectInputStream.readObject();
                     //解析操作命令，反射调用操作命令指示的类对象和方法
                     RefBean refBean = (RefBean) object;
@@ -37,8 +38,6 @@ public class Socket_S {
                     printMsg.invoke(msg);
                 }
             }
-
-
         } catch (IOException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }

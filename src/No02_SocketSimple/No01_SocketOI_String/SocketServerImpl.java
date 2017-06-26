@@ -7,29 +7,30 @@ import java.net.Socket;
 /**
  *
  */
-public class SocketServerImpl   {
-    int port = 19999;
-    ServerSocket ss = null;
+public class SocketServerImpl {
+    private int port = 19999;
 
-    public SocketServerImpl() throws IOException {
+    public SocketServerImpl() {
         System.err.println("server object has been created!");
     }
 
-    public void start() throws IOException {
-        ss = new ServerSocket(port);
-        while (true) {
-            Socket socket = ss.accept();//阻塞 只到有远端连接接入
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintStream pw = new PrintStream(socket.getOutputStream(),true);
-            String msg = null;
-            while ((msg = br.readLine()) != null) {
-                System.out.println("received msg: " + msg);
-                pw.println("hello client!");
-                System.out.println("======== msg send back =======");
+    public void start() {
+        try (ServerSocket ss = new ServerSocket(port)) {
+            while (true) {
+                Socket socket = ss.accept();//阻塞 只到有远端连接接入
+                BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintStream pw = new PrintStream(socket.getOutputStream(), true);
+                String msg = null;
+                while ((msg = br.readLine()) != null) {
+                    System.out.println("received msg: " + msg);
+                    pw.println("hello client!");
+                    System.out.println("======== msg send back =======");
+                }
             }
-
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     public static void main(String[] args) throws IOException {

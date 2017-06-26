@@ -1,12 +1,20 @@
 package No01_ThreadStudy.No01_MultThreads;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  *
  */
 public class ThreadSimple {
-    public static int i = 0;
-    public static int j = 0;
-
+    private static int i = 0;
+    private static int j = 0;
+    public List<String> arrayList = Collections.synchronizedList(new ArrayList<String>());
+    public ConcurrentHashMap map = new ConcurrentHashMap();
+    CopyOnWriteArrayList list = new CopyOnWriteArrayList();
 
     public static void main(String[] args) throws InterruptedException {
 

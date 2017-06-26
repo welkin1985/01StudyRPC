@@ -10,27 +10,28 @@ import java.net.Socket;
  */
 public class Socket_S {
     private int port = 19999;
-    private ServerSocket ss = null;
 
     public Socket_S() {
 
     }
 
     public void startServer() throws ClassNotFoundException {
-        try {
-            ss = new ServerSocket(port);
+        try (
+                ServerSocket ss = new ServerSocket(port)
+        ) {
             System.err.println("server started!");
-            {
-                while (true) {
-                    Socket socket = ss.accept();
-                    ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            while (true) {
+                try (
+                        Socket socket = ss.accept();
+                        ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
+                ) {
                     Object object = objectInputStream.readObject();
                     MessageBean msg = (MessageBean) object;
                     msg.printMsg();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }

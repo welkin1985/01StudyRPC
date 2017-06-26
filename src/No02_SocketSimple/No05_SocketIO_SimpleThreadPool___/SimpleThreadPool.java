@@ -22,7 +22,6 @@ public class SimpleThreadPool {
                     for (int i = 0; i < POOLSIZE; i++) {
                         pool.add(new Thread());
                     }
-
                 }
             }
         }

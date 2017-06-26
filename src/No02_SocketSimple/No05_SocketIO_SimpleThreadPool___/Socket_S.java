@@ -16,13 +16,11 @@ public class Socket_S {
     }
 
     public void startServer() {
-        try {
-            ServerSocket ss = new ServerSocket(PORT);
-            {
-                while (true) {
-                    Socket socket = ss.accept();
-                    Thread thread = SimpleThreadPool.getThread();
-                }
+        try (
+                ServerSocket ss = new ServerSocket(PORT)) {
+            while (true) {
+                Socket socket = ss.accept();
+                Thread thread = SimpleThreadPool.getThread();
             }
         } catch (IOException e) {
             e.printStackTrace();

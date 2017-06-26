@@ -13,14 +13,13 @@ public class SocketClientImpl {
     int port = 19999;
     String address = "127.0.0.1";
 
-    public void stratClient()  {
-        Socket s = null;
-        PrintWriter pw = null;
-        BufferedReader br = null;
-        try {
-            s = new Socket(address, port);
-            pw = new PrintWriter(s.getOutputStream(), true);
-            br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+    public void stratClient() {
+        try (
+                Socket s = new Socket(address, port);
+                PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
+                BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        ) {
+
             pw.println("hello Server , I am a client!");
             System.out.println("==========msg has send!=============");
             String msg = null;

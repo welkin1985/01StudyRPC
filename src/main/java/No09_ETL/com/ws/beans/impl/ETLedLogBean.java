@@ -33,7 +33,7 @@ public class ETLedLogBean implements Serializable {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         for (Map.Entry<String, String> entry : etledLogMap.entrySet()) {
-            sb.append(entry.getKey() + ConfigManger.getStr(Constant.SEP_IN_HIVE) + entry.getValue());
+            sb.append(entry.getKey() + ConfigManger.getStr(Constant.SEP_AFTER_ETL) + entry.getValue());
         }
 
         return sb.substring(0, -1);

@@ -1,3 +1,5 @@
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,13 +11,14 @@ import java.util.logging.Logger;
 /**
  *
  */
+@Component
 public class Utils {
+
     private static Logger log = Logger.getLogger(Utils.class.getName());
     private static ThreadPoolExecutor threadPoolExecutor;
 
     private Utils() {
     }
-
 
 
     public static ThreadPoolExecutor getExecutor() {

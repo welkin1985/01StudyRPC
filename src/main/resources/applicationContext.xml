@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="true">
+
+    <!--用于加载配置文件-->
+    <!--<context:property-placeholder location="classpath:/Config.properties"/>-->
+    <!--用于扫描指定包内的注解-->
+    <context:component-scan base-package="No03_SpringStuday.No01_Beans"/>
+    <!--自动扫描AOP注解  不能没有相关注解-->
+    <!--    <aop:aspectj-autoproxy/>-->
+    <!--用于扫描各个包内的context.xml文件 不能为空-->
+    <!--    <import resource="classpath:"/>-->
+
+
+    <!--bean-->
+    <bean id="orgLogBean_" class="No09_ETL.com.ws.beans.impl.OrgLogBean_">
+        <constructor-arg value="{$sep.regex.log}"/>
+    </bean>
+
+    <!--原始日志Bean-->
+    <bean id="orgLogBean_02" class="No09_ETL.com.ws.utils.OrgLogBean_02" init-method="init">
+        <!--日志分割符，按配置文件正则匹配-->
+        <property name="regexSep" value="{$sep.org.log}"/>
+        <!--前端日志采集的log字段-->
+        <property name="logFieldKeys" value="{$org.log.field.fields}"/>
+    </bean>
+
+    <!--ETL后的日志Bean-->
+    <bean id="etledLogBean_" class="No09_ETL.com.ws.beans.impl.ETLedLogBean_"/>
+
+
+    <bean id="serverSocket" class="java.net.ServerSocket">
+        <constructor-arg value="19999"/>
+    </bean>
+
+
+</beans>

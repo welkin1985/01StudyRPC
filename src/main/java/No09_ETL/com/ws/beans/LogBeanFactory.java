@@ -6,9 +6,10 @@ import No09_ETL.com.ws.commone.Constant;
 import No09_ETL.com.ws.config.ConfigManger;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
- *
+ * The type Log bean factory.
  */
 public class LogBeanFactory {
     final private static String[] nginxFields = ConfigManger.getStr(Constant.FIELDS_IN_NGINX).trim().split("[\t;,]");
@@ -23,16 +24,18 @@ public class LogBeanFactory {
 
     private static OrgLogBean orgLogBean;
     private static ETLedLogBean etledLogBean;
+    private static Logger logger = Logger.getGlobal();
 
     private LogBeanFactory() {
     }
 
 
-    public static OrgLogBean getOrgLogBen(String log) {
+    public static OrgLogBean setAngGetOrgLogBen(String log) {
         /**
          * 切分log日志为String数组
          * */
         final String[] logKeyValues = log.trim().split(seqInLog);
+
         /**
 
 
@@ -41,11 +44,12 @@ public class LogBeanFactory {
          * */
         // 长度不足 =>直接返回null
         if (logKeyValues.length < nginxFields.length) {
+            logger.warning("日志切分结果无效");
             return orgLogBean;
         }
 
-        //  nginx字段有没有包含title情况下，却出现了=号           => 直接返回null
-        //  nginx字段有没有包含title情况下，也没有出现了=号       => 补全nginx字段的title
+        //  nginx字段没有包含title情况下，却出现了=号           => 直接返回null
+        //  nginx字段没有包含title情况下，也没有出现了=号       => 补全nginx字段的title
 
         if (!isNginxContainTitle) {
             if (isNginxAhead) {
@@ -57,14 +61,12 @@ public class LogBeanFactory {
                     }
                 }
             } else {
-                int nginxFieldPoint = logKeyValues.length - nginxFields.length - 1;
+                int nginxFieldPoint = logKeyValues.length - nginxFields.length;
                 for (int i = nginxFieldPoint; i < logKeyValues.length; i++) {
                     if (logKeyValues[i].contains(sepNginxKV)) {
                         return null;
                     } else {
-                        for (String nginxField : nginxFields) {
-                            logKeyValues[i] = nginxField + sepNginxKV + logKeyValues[i];
-                        }
+                        logKeyValues[i] = nginxFields[i-nginxFieldPoint] + sepNginxKV + logKeyValues[i];
                     }
                 }
             }
@@ -119,14 +121,14 @@ public class LogBeanFactory {
             }
         }
 
-        HashMap<String, String> logMap = etledLogBean.getEtledLogMap();
-        for (String s : logMap.keySet()) {
-            logMap.remove(s);
+        etledLogBean.getOutkeyValue().clear();
+        for (String etlField : etlFields) {
+            etledLogBean.getOutkeyValue().put(etlField, "-");
         }
-        for (String str : etlFields) {
-            logMap.put(str, "");
-        }
+
         return etledLogBean;
 
     }
+
+
 }

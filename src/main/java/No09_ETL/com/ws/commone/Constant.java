@@ -21,7 +21,7 @@ public class Constant {
     final public static String SEP_BETWEEN_ALL_KV_REGEX = "sep.between.all.keyValue.regex";
 
     /*ETL相关参数*/
-    final public static String RESOLVER = "org.log.resolver";
+    final public static String RESOLVERS = "org.log.resolvers";
     final public static String FIELDS_AFTER_ETL = "etl.log.fields.sequence";
     final public static String SEP_AFTER_ETL = "sep.in.etl.fields.sequence";
 

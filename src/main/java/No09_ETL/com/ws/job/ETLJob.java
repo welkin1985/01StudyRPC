@@ -1,4 +1,4 @@
-package No09_ETL.com.ws.enginer;
+package No09_ETL.com.ws.job;
 
 import No09_ETL.com.ws.beans.LogBeanFactory;
 import No09_ETL.com.ws.beans.impl.ETLedLogBean;
@@ -35,9 +35,8 @@ public class ETLJob extends Configured implements Tool {
 
 
         public void map(LongWritable key, Text logText, Context context) throws IOException, InterruptedException {
-            OrgLogBean orgLogBean = LogBeanFactory.getOrgLogBen(logText.toString());
+            OrgLogBean orgLogBean = LogBeanFactory.setAngGetOrgLogBen(logText.toString());
             ETLedLogBean initETLBean = LogBeanFactory.getInitETLBean();
-
 
             context.write(new Text(initETLBean.toString()), null);
         }
@@ -85,6 +84,7 @@ public class ETLJob extends Configured implements Tool {
 
 
         int res = ToolRunner.run(new Configuration(), new ETLJob(), args);
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
 
         System.exit(res);
